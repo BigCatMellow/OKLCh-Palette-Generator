@@ -230,26 +230,26 @@ input[type="number"] {
               </select>
             </div>
             
-            <div class="row">
-              <label>Background</label>
-            </div>
-            <div style="padding-left:12px">
-              <div class="row">
-                <span style="min-width:30px;font-size:12px;color:var(--muted)" class="tooltip" data-tip="Lightness: 0 = black, 1 = white">L</span>
-                <input type="range" id="L_b" min="0" max="1" step="0.01" value="0.24">
-                <span class="value-display" id="L_b_val">0.24</span>
-              </div>
-              <div class="row">
-                <span style="min-width:30px;font-size:12px;color:var(--muted)" class="tooltip" data-tip="Chroma: color saturation">C</span>
-                <input type="range" id="C_b" min="0" max="0.2" step="0.005" value="0.02">
-                <span class="value-display" id="C_b_val">0.02</span>
-              </div>
-              <div class="row">
-                <span style="min-width:30px;font-size:12px;color:var(--muted)" class="tooltip" data-tip="Hue: color angle 0-360°">h°</span>
-                <input type="range" id="h_b" min="0" max="360" step="1" value="40">
-                <span class="value-display" id="h_b_val">40°</span>
-              </div>
-            </div>
+<div class="row">
+  <label>Background</label>
+</div>
+<div style="padding-left:12px">
+  <div class="row">
+    <span style="min-width:30px;font-size:12px;color:var(--muted)" class="tooltip" data-tip="L (Lightness): 0 = black, 1 = white">Brightness</span>
+    <input type="range" id="L_b" min="0" max="1" step="0.01" value="0.24">
+    <span class="value-display" id="L_b_val">0.24</span>
+  </div>
+  <div class="row">
+    <span style="min-width:30px;font-size:12px;color:var(--muted)" class="tooltip" data-tip="C (Chroma): color saturation/intensity">Saturation</span>
+    <input type="range" id="C_b" min="0" max="0.2" step="0.005" value="0.02">
+    <span class="value-display" id="C_b_val">0.02</span>
+  </div>
+  <div class="row">
+    <span style="min-width:30px;font-size:12px;color:var(--muted)" class="tooltip" data-tip="h (Hue): color angle 0-360°">Hue</span>
+    <input type="range" id="h_b" min="0" max="360" step="1" value="40">
+    <span class="value-display" id="h_b_val">40°</span>
+  </div>
+</div>
             
             <div class="row" style="margin-top:12px">
               <label>Target CR <span class="info-icon tooltip" data-tip="Contrast Ratio: 7+ = AAA, 4.5+ = AA">?</span></label>
@@ -259,21 +259,22 @@ input[type="number"] {
             <div class="help-text">Auto-calculates foreground lightness for target contrast</div>
             
             <div class="row" style="margin-top:12px">
+  <div class="row" style="margin-top:12px">
   <label>Foreground</label>
 </div>
 <div style="padding-left:12px">
   <div class="row">
-    <span style="min-width:30px;font-size:12px;color:var(--muted)" class="tooltip" data-tip="Lightness: 0 = black, 1 = white">L</span>
+    <span style="min-width:30px;font-size:12px;color:var(--muted)" class="tooltip" data-tip="L (Lightness): 0 = black, 1 = white">Brightness</span>
     <input type="range" id="L_f" min="0" max="1" step="0.01" value="0.88">
     <span class="value-display" id="L_f_val">0.88</span>
   </div>
   <div class="row">
-    <span style="min-width:30px;font-size:12px;color:var(--muted)" class="tooltip" data-tip="Chroma: color saturation">C</span>
+    <span style="min-width:30px;font-size:12px;color:var(--muted)" class="tooltip" data-tip="C (Chroma): color saturation/intensity">Saturation</span>
     <input type="range" id="C_f" min="0" max="0.2" step="0.005" value="0.02">
     <span class="value-display" id="C_f_val">0.02</span>
   </div>
   <div class="row">
-    <span style="min-width:30px;font-size:12px;color:var(--muted)" class="tooltip" data-tip="Hue: color angle 0-360°">h°</span>
+    <span style="min-width:30px;font-size:12px;color:var(--muted)" class="tooltip" data-tip="h (Hue): color angle 0-360°">Hue</span>
     <input type="range" id="h_f" min="0" max="360" step="1" value="95">
     <span class="value-display" id="h_f_val">95°</span>
   </div>
@@ -906,12 +907,12 @@ function render(sw, bh, fh){
     const grid = document.createElement('div'); 
     grid.className = 'meta-grid'; 
     grid.innerHTML = `
-      <div class="meta-label">Lightness</div><div class="meta-value">${s.L}</div>
-      <div class="meta-label">Chroma</div><div class="meta-value">${s.C}</div>
-      <div class="meta-label">Hue</div><div class="meta-value">${s.h}°</div>
-      <div class="meta-label">CR vs BG</div><div class="meta-value" style="color:${s.CR >= 4.5 ? '#10b981' : '#ef4444'}">${s.CR}</div>
-      <div class="meta-label">ΔE to FG</div><div class="meta-value">${s.deltaE_fg || deltaE_ok(s.hex, fh).toFixed(1)}</div>
-    `; 
+  <div class="meta-label">Brightness</div><div class="meta-value">${s.L}</div>
+  <div class="meta-label">Saturation</div><div class="meta-value">${s.C}</div>
+  <div class="meta-label">Hue</div><div class="meta-value">${s.h}°</div>
+  <div class="meta-label">CR vs BG</div><div class="meta-value" style="color:${s.CR >= 4.5 ? '#10b981' : '#ef4444'}">${s.CR}</div>
+  <div class="meta-label">ΔE to FG</div><div class="meta-value">${s.deltaE_fg || deltaE_ok(s.hex, fh).toFixed(1)}</div>
+`;
     meta.appendChild(grid);
     
     const sample = document.createElement('div'); 
