@@ -129,7 +129,39 @@ input[type="number"] {
     .export-title{font-weight:600;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
 	
 	
-	
+	.stripe-preview{
+  display:flex;
+  height:60px;
+  border-radius:12px;
+  overflow:hidden;
+  margin-top:16px;
+  box-shadow:0 4px 12px rgba(0,0,0,.3);
+  border:1px solid var(--border);
+}
+.stripe-preview .stripe{
+  flex:1;
+  transition:flex .2s;
+  cursor:pointer;
+  position:relative;
+}
+.stripe-preview .stripe:hover{
+  flex:1.5;
+}
+.stripe-preview .stripe:hover::after{
+  content:attr(data-label);
+  position:absolute;
+  bottom:8px;
+  left:50%;
+  transform:translateX(-50%);
+  background:rgba(0,0,0,.8);
+  color:#fff;
+  padding:4px 8px;
+  border-radius:6px;
+  font-size:11px;
+  font-weight:600;
+  white-space:nowrap;
+  pointer-events:none;
+}
 	
 	
 	
@@ -251,7 +283,7 @@ input[type="number"] {
         </div>
       </div>
 
-      <!-- RIGHT PANEL -->
+<!-- RIGHT PANEL -->
       <div class="card">
         <h2><span class="icon">✨</span> Palette Generation</h2>
         <div class="body">
@@ -309,12 +341,22 @@ input[type="number"] {
               </div>
               <div id="codeBox" class="code-preview">// Code preview will appear here</div>
             </div>
+            
+            <!-- Stripe preview -->
+            <div class="stripe-preview" id="stripePreview"></div>
           </div>
 
           <div class="section">
             <div class="section-title">Color Swatches</div>
             <div class="swatches" id="swatches"></div>
           </div>
+
+        </div>
+      </div>
+      </div>
+  <!-- Add this new stripe preview -->
+  <div class="stripe-preview" id="stripePreview"></div>
+</div>
 
         </div>
       </div>
@@ -796,6 +838,45 @@ function render(sw, bh, fh){
   
   const code = `<span style="color:${pick(sw,'keyword')}">const</span> greeting = <span style="color:${pick(sw,'string')}">"Hello World"</span>;\n\n<span style="color:${pick(sw,'function')}">function</span> <span style="color:${pick(sw,'info')}">sayHello</span>() {\n  <span style="color:${pick(sw,'keyword')}">return</span> <span style="color:${pick(sw,'string')}">\`\${greeting}!\`</span>;\n} <span style="color:${pick(sw,'comment')}">// Returns greeting</span>`;
   $('codeBox').innerHTML = code;
+
+  // Add stripe preview generation HERE (before const box = $('swatches'))
+  const stripeContainer = $('stripePreview');
+  stripeContainer.innerHTML = '';
+  
+  // Add background stripe
+  const bgStripe = document.createElement('div');
+  bgStripe.className = 'stripe';
+  bgStripe.style.background = bh;
+  bgStripe.setAttribute('data-label', `BG ${bh}`);
+  bgStripe.addEventListener('click', () => {
+    navigator.clipboard.writeText(bh);
+    showMessage('copy_msg', `Copied ${bh}!`);
+  });
+  stripeContainer.appendChild(bgStripe);
+  
+  // Add foreground stripe
+  const fgStripe = document.createElement('div');
+  fgStripe.className = 'stripe';
+  fgStripe.style.background = fh;
+  fgStripe.setAttribute('data-label', `FG ${fh}`);
+  fgStripe.addEventListener('click', () => {
+    navigator.clipboard.writeText(fh);
+    showMessage('copy_msg', `Copied ${fh}!`);
+  });
+  stripeContainer.appendChild(fgStripe);
+  
+  // Add accent color stripes
+  for(const s of sw){
+    const stripe = document.createElement('div');
+    stripe.className = 'stripe';
+    stripe.style.background = s.hex;
+    stripe.setAttribute('data-label', `${s.role} ${s.hex}`);
+    stripe.addEventListener('click', () => {
+      navigator.clipboard.writeText(s.hex);
+      showMessage('copy_msg', `Copied ${s.hex}!`);
+    });
+    stripeContainer.appendChild(stripe);
+  }
 
   const box = $('swatches'); 
   box.innerHTML = '';
