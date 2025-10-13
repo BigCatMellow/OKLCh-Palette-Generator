@@ -189,6 +189,9 @@ input[type="number"] {
 
   <div class="tab-content" id="builder-tab">
     <div class="grid cols">
+	
+	
+	
       <!-- LEFT PANEL -->
       <div class="card">
         <h2><span class="icon">🎯</span> Color Controls</h2>
@@ -258,8 +261,7 @@ input[type="number"] {
             </div>
             <div class="help-text">Auto-calculates foreground lightness for target contrast</div>
             
-            <div class="row" style="margin-top:12px">
-  <div class="row" style="margin-top:12px">
+<div class="row" style="margin-top:12px">
   <label>Foreground</label>
 </div>
 <div style="padding-left:12px">
@@ -906,7 +908,7 @@ function render(sw, bh, fh){
     
     const grid = document.createElement('div'); 
     grid.className = 'meta-grid'; 
-    grid.innerHTML = `
+grid.innerHTML = `
   <div class="meta-label">Brightness</div><div class="meta-value">${s.L}</div>
   <div class="meta-label">Saturation</div><div class="meta-value">${s.C}</div>
   <div class="meta-label">Hue</div><div class="meta-value">${s.h}°</div>
