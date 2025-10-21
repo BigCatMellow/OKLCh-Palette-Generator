@@ -637,7 +637,8 @@ wheel.addEventListener('mousedown', (e) => {
       setVal('C_star', newChroma);
       
       drawPointer(); 
-      syncBase(); 
+      syncBase();
+	  updateColorInputs();
     } 
   };
   move(e); 
@@ -1169,5 +1170,6 @@ updateColorInputs();
 </script>
 </body>
 </html>
+
 
 
